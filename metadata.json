@@ -1,0 +1,6 @@
+{
+  "name": "Noorani Qaida for Kids - نورانی قاعدہ",
+  "description": "A colourful, playful, and interactive Noorani Qaida learning app for children with Arabic letter recognition and audio pronunciation.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
