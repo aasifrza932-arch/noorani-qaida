@@ -42,8 +42,8 @@ export const HomeScreen: React.FC<HomeScreenProps> = ({ onSelectView, onOpenAudi
         </div>
       </header>
 
-      {/* Main 3 Big Colorful Cards */}
-      <main className="grid grid-cols-1 md:grid-cols-3 gap-6 my-auto py-4">
+      {/* Main 5 Big Colorful Cards */}
+      <main className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 gap-4 sm:gap-5 my-auto py-4">
         {/* Card 1: سبق 1 */}
         <div
           role="button"
@@ -55,7 +55,7 @@ export const HomeScreen: React.FC<HomeScreenProps> = ({ onSelectView, onOpenAudi
               handleCardClick('lesson-1');
             }
           }}
-          className="book-card bg-gradient-to-br from-teal-800/40 via-emerald-900/30 to-teal-950/70 rounded-3xl p-6 sm:p-7 border border-teal-400/35 text-right relative overflow-hidden group cursor-pointer flex flex-col justify-between min-h-[290px] shadow-2xl focus:outline-none focus:ring-4 focus:ring-teal-400/50"
+          className="book-card bg-gradient-to-br from-teal-800/40 via-emerald-900/30 to-teal-950/70 rounded-3xl p-6 border border-teal-400/35 text-right relative overflow-hidden group cursor-pointer flex flex-col justify-between min-h-[300px] shadow-2xl focus:outline-none focus:ring-4 focus:ring-teal-400/50"
         >
           {/* Decorative Background Letters */}
           <span className="absolute -left-3 -bottom-5 text-8xl font-bold font-arabic text-teal-300/10 select-none pointer-events-none group-hover:scale-110 transition-transform">
@@ -115,7 +115,7 @@ export const HomeScreen: React.FC<HomeScreenProps> = ({ onSelectView, onOpenAudi
               handleCardClick('lesson-2');
             }
           }}
-          className="book-card bg-gradient-to-br from-cyan-900/40 via-teal-900/30 to-emerald-950/70 rounded-3xl p-6 sm:p-7 border border-cyan-400/35 text-right relative overflow-hidden group cursor-pointer flex flex-col justify-between min-h-[290px] shadow-2xl focus:outline-none focus:ring-4 focus:ring-cyan-400/50"
+          className="book-card bg-gradient-to-br from-cyan-900/40 via-teal-900/30 to-emerald-950/70 rounded-3xl p-6 border border-cyan-400/35 text-right relative overflow-hidden group cursor-pointer flex flex-col justify-between min-h-[300px] shadow-2xl focus:outline-none focus:ring-4 focus:ring-cyan-400/50"
         >
           {/* Decorative Background Letters */}
           <span className="absolute -left-3 -bottom-5 text-8xl font-bold font-arabic text-cyan-300/10 select-none pointer-events-none group-hover:scale-110 transition-transform">
@@ -164,7 +164,127 @@ export const HomeScreen: React.FC<HomeScreenProps> = ({ onSelectView, onOpenAudi
           </div>
         </div>
 
-        {/* Card 3: کھیلو اور سیکھو (QUIZ) */}
+        {/* Card 3: سبق 3 */}
+        <div
+          role="button"
+          tabIndex={0}
+          onClick={() => handleCardClick('lesson-3')}
+          onKeyDown={(e) => {
+            if (e.key === 'Enter' || e.key === ' ') {
+              e.preventDefault();
+              handleCardClick('lesson-3');
+            }
+          }}
+          className="book-card bg-gradient-to-br from-teal-800/45 via-emerald-800/35 to-cyan-950/70 rounded-3xl p-6 border border-teal-300/35 text-right relative overflow-hidden group cursor-pointer flex flex-col justify-between min-h-[300px] shadow-2xl focus:outline-none focus:ring-4 focus:ring-teal-300/50"
+        >
+          {/* Decorative Background Letters */}
+          <span className="absolute -left-3 -bottom-5 text-8xl font-bold font-arabic text-teal-200/10 select-none pointer-events-none group-hover:scale-110 transition-transform">
+            اِ بِ
+          </span>
+
+          <div className="relative z-10">
+            {/* Top Badge */}
+            <div className="flex items-center justify-between mb-4">
+              <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-bold bg-teal-400/20 text-teal-200 border border-teal-300/30 backdrop-blur-sm">
+                <BookOpen className="w-3.5 h-3.5 text-teal-300" />
+                29 حروف
+              </span>
+              <div className="w-12 h-12 rounded-2xl bg-gradient-to-tr from-teal-400 to-emerald-500 text-white flex items-center justify-center shadow-lg shadow-teal-400/30 text-2xl group-hover:rotate-6 transition-transform">
+                📖
+              </div>
+            </div>
+
+            {/* Lesson Title */}
+            <h2 className="text-3xl sm:text-4xl font-extrabold text-white font-arabic mb-1 drop-shadow-sm">
+              سبق 3
+            </h2>
+            <p className="text-xl sm:text-2xl font-bold text-teal-200 font-arabic mb-3">
+              حروف کے نیچے زیر
+            </p>
+            <p className="text-xs text-teal-100/70 font-sans">
+              Learn the short vowel Kasrah (Zer) sound under all 29 Arabic letters
+            </p>
+          </div>
+
+          {/* Letter preview strip & action */}
+          <div className="relative z-10 pt-4 mt-2 border-t border-teal-400/20 flex items-center justify-between">
+            <div className="flex items-center gap-1.5 text-white font-arabic text-xl font-bold bg-black/25 backdrop-blur-sm px-3 py-1 rounded-xl border border-white/10">
+              <span>اِ</span>
+              <span className="text-teal-300">•</span>
+              <span>بِ</span>
+              <span className="text-teal-300">•</span>
+              <span>تِ</span>
+              <span className="text-teal-300">•</span>
+              <span>ثِ</span>
+            </div>
+            <div className="inline-flex items-center gap-1 px-4 py-2 bg-gradient-to-r from-teal-400 to-emerald-500 group-hover:from-teal-300 group-hover:to-emerald-400 text-white text-xs font-bold rounded-full shadow-md shadow-teal-950/50 transition-all">
+              <span>کھولیں</span>
+              <ChevronLeft className="w-4 h-4" />
+            </div>
+          </div>
+        </div>
+
+        {/* Card 4: سبق 4 */}
+        <div
+          role="button"
+          tabIndex={0}
+          onClick={() => handleCardClick('lesson-4')}
+          onKeyDown={(e) => {
+            if (e.key === 'Enter' || e.key === ' ') {
+              e.preventDefault();
+              handleCardClick('lesson-4');
+            }
+          }}
+          className="book-card bg-gradient-to-br from-emerald-800/45 via-teal-800/35 to-sky-950/70 rounded-3xl p-6 border border-emerald-300/35 text-right relative overflow-hidden group cursor-pointer flex flex-col justify-between min-h-[300px] shadow-2xl focus:outline-none focus:ring-4 focus:ring-emerald-300/50"
+        >
+          {/* Decorative Background Letters */}
+          <span className="absolute -left-3 -bottom-5 text-8xl font-bold font-arabic text-emerald-200/10 select-none pointer-events-none group-hover:scale-110 transition-transform">
+            اُ بُ
+          </span>
+
+          <div className="relative z-10">
+            {/* Top Badge */}
+            <div className="flex items-center justify-between mb-4">
+              <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-bold bg-emerald-400/20 text-emerald-200 border border-emerald-300/30 backdrop-blur-sm">
+                <BookOpen className="w-3.5 h-3.5 text-emerald-300" />
+                29 حروف
+              </span>
+              <div className="w-12 h-12 rounded-2xl bg-gradient-to-tr from-emerald-400 to-teal-500 text-white flex items-center justify-center shadow-lg shadow-emerald-400/30 text-2xl group-hover:rotate-6 transition-transform">
+                📖
+              </div>
+            </div>
+
+            {/* Lesson Title */}
+            <h2 className="text-3xl sm:text-4xl font-extrabold text-white font-arabic mb-1 drop-shadow-sm">
+              سبق 4
+            </h2>
+            <p className="text-xl sm:text-2xl font-bold text-teal-200 font-arabic mb-3">
+              پیش (ضمہ)
+            </p>
+            <p className="text-xs text-teal-100/70 font-sans">
+              Learn the short vowel Dammah (Pesh) sound above all 29 Arabic letters
+            </p>
+          </div>
+
+          {/* Letter preview strip & action */}
+          <div className="relative z-10 pt-4 mt-2 border-t border-emerald-400/20 flex items-center justify-between">
+            <div className="flex items-center gap-1.5 text-white font-arabic text-xl font-bold bg-black/25 backdrop-blur-sm px-3 py-1 rounded-xl border border-white/10">
+              <span>اُ</span>
+              <span className="text-emerald-300">•</span>
+              <span>بُ</span>
+              <span className="text-emerald-300">•</span>
+              <span>تُ</span>
+              <span className="text-emerald-300">•</span>
+              <span>ثُ</span>
+            </div>
+            <div className="inline-flex items-center gap-1 px-4 py-2 bg-gradient-to-r from-emerald-400 to-teal-500 group-hover:from-emerald-300 group-hover:to-teal-400 text-white text-xs font-bold rounded-full shadow-md shadow-teal-950/50 transition-all">
+              <span>کھولیں</span>
+              <ChevronLeft className="w-4 h-4" />
+            </div>
+          </div>
+        </div>
+
+        {/* Card 5: کھیلو اور سیکھو (QUIZ) */}
         <div
           role="button"
           tabIndex={0}
@@ -175,7 +295,7 @@ export const HomeScreen: React.FC<HomeScreenProps> = ({ onSelectView, onOpenAudi
               handleCardClick('quiz');
             }
           }}
-          className="book-card bg-gradient-to-br from-blue-900/40 via-teal-900/30 to-indigo-950/70 rounded-3xl p-6 sm:p-7 border border-blue-400/35 text-right relative overflow-hidden group cursor-pointer flex flex-col justify-between min-h-[290px] shadow-2xl focus:outline-none focus:ring-4 focus:ring-blue-400/50"
+          className="book-card bg-gradient-to-br from-blue-900/40 via-teal-900/30 to-indigo-950/70 rounded-3xl p-6 border border-blue-400/35 text-right relative overflow-hidden group cursor-pointer flex flex-col justify-between min-h-[300px] shadow-2xl focus:outline-none focus:ring-4 focus:ring-blue-400/50"
         >
           {/* Decorative Stars Background */}
           <span className="absolute -left-2 -bottom-3 text-7xl text-blue-300/10 select-none pointer-events-none group-hover:rotate-12 transition-transform">
@@ -234,7 +354,7 @@ export const HomeScreen: React.FC<HomeScreenProps> = ({ onSelectView, onOpenAudi
           title="Open Audio Files Upload Diagnostics"
         >
           <Volume2 className="w-3.5 h-3.5 text-teal-300" />
-          <span>آڈیو اسٹیٹس / Upload Diagnostics (58 Files)</span>
+          <span>آڈیو اسٹیٹس / Upload Diagnostics (87 Files)</span>
         </button>
       </footer>
     </div>

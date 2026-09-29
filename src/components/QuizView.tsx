@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { ArrowRight, Star, RefreshCw, Home, Volume2, Sparkles, CheckCircle2, Award, Heart } from 'lucide-react';
-import { LESSON_1, LESSON_2 } from '../data/lessons';
+import { LESSON_1, LESSON_2, LESSON_3, LESSON_4 } from '../data/lessons';
 import { QaidaItem, ViewMode } from '../types';
 import { audioController } from '../utils/audioController';
 import { soundFX } from '../utils/soundEffects';
@@ -25,11 +25,13 @@ export const QuizView: React.FC<QuizViewProps> = ({ onNavigate, onOpenAudioStatu
   const [isCompleted, setIsCompleted] = useState<boolean>(false);
   const [hasScoredThisQuestion, setHasScoredThisQuestion] = useState<boolean>(false);
 
-  // Generate 10 randomized questions from Lesson 1 and Lesson 2 without repeating
+  // Generate 10 randomized questions from Lesson 1, Lesson 2, Lesson 3 and Lesson 4 without repeating
   const generateQuiz = () => {
     const allLessonItems: { item: QaidaItem; lessonId: number }[] = [
       ...LESSON_1.items.map((item) => ({ item, lessonId: 1 })),
       ...LESSON_2.items.map((item) => ({ item, lessonId: 2 })),
+      ...LESSON_3.items.map((item) => ({ item, lessonId: 3 })),
+      ...LESSON_4.items.map((item) => ({ item, lessonId: 4 })),
     ];
 
     // Shuffle all items

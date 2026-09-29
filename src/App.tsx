@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { ViewMode } from './types';
-import { LESSON_1, LESSON_2 } from './data/lessons';
+import { LESSON_1, LESSON_2, LESSON_3, LESSON_4 } from './data/lessons';
 import { HomeScreen } from './components/HomeScreen';
 import { LessonView } from './components/LessonView';
 import { QuizView } from './components/QuizView';
@@ -41,6 +41,22 @@ export default function App() {
       {currentView === 'lesson-2' && (
         <LessonView
           lesson={LESSON_2}
+          onNavigate={(view) => setCurrentView(view)}
+          onOpenAudioStatus={() => setIsAudioStatusOpen(true)}
+        />
+      )}
+
+      {currentView === 'lesson-3' && (
+        <LessonView
+          lesson={LESSON_3}
+          onNavigate={(view) => setCurrentView(view)}
+          onOpenAudioStatus={() => setIsAudioStatusOpen(true)}
+        />
+      )}
+
+      {currentView === 'lesson-4' && (
+        <LessonView
+          lesson={LESSON_4}
           onNavigate={(view) => setCurrentView(view)}
           onOpenAudioStatus={() => setIsAudioStatusOpen(true)}
         />

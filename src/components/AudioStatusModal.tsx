@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useTransition } from 'react';
 import { X, CheckCircle2, XCircle, Play, RefreshCw, Volume2, HardDrive, Info } from 'lucide-react';
-import { LESSON_1, LESSON_2 } from '../data/lessons';
+import { LESSON_1, LESSON_2, LESSON_3, LESSON_4 } from '../data/lessons';
 import { audioController } from '../utils/audioController';
 import { QaidaItem } from '../types';
 
@@ -20,7 +20,7 @@ interface FileCheckResult {
 }
 
 export const AudioStatusModal: React.FC<AudioStatusModalProps> = ({ isOpen, onClose }) => {
-  const [filter, setFilter] = useState<'all' | 'l1' | 'l2' | 'missing'>('all');
+  const [filter, setFilter] = useState<'all' | 'l1' | 'l2' | 'l3' | 'l4' | 'missing'>('all');
   const [results, setResults] = useState<FileCheckResult[]>([]);
   const [isScanning, setIsScanning] = useState(false);
   const [, startTransition] = useTransition();
@@ -28,6 +28,8 @@ export const AudioStatusModal: React.FC<AudioStatusModalProps> = ({ isOpen, onCl
   const allItems: { lessonId: number; item: QaidaItem }[] = [
     ...LESSON_1.items.map((item) => ({ lessonId: 1, item })),
     ...LESSON_2.items.map((item) => ({ lessonId: 2, item })),
+    ...LESSON_3.items.map((item) => ({ lessonId: 3, item })),
+    ...LESSON_4.items.map((item) => ({ lessonId: 4, item })),
   ];
 
   const checkAllFiles = async () => {
@@ -86,6 +88,8 @@ export const AudioStatusModal: React.FC<AudioStatusModalProps> = ({ isOpen, onCl
   const filteredResults = results.filter((r) => {
     if (filter === 'l1') return r.lessonId === 1;
     if (filter === 'l2') return r.lessonId === 2;
+    if (filter === 'l3') return r.lessonId === 3;
+    if (filter === 'l4') return r.lessonId === 4;
     if (filter === 'missing') return r.status === 'missing';
     return true;
   });
@@ -125,9 +129,13 @@ export const AudioStatusModal: React.FC<AudioStatusModalProps> = ({ isOpen, onCl
           <div>
             <strong>How to upload:</strong> Place all MP3 files directly into your project root directory (e.g.{' '}
             <code className="bg-teal-900/80 px-1 py-0.5 rounded font-mono font-bold text-teal-100">/001.mp3</code> to{' '}
-            <code className="bg-teal-900/80 px-1 py-0.5 rounded font-mono font-bold text-teal-100">/029.mp3</code> and{' '}
+            <code className="bg-teal-900/80 px-1 py-0.5 rounded font-mono font-bold text-teal-100">/029.mp3</code>,{' '}
             <code className="bg-teal-900/80 px-1 py-0.5 rounded font-mono font-bold text-teal-100">/101.mp3</code> to{' '}
-            <code className="bg-teal-900/80 px-1 py-0.5 rounded font-mono font-bold text-teal-100">/129.mp3</code>).
+            <code className="bg-teal-900/80 px-1 py-0.5 rounded font-mono font-bold text-teal-100">/129.mp3</code>,{' '}
+            <code className="bg-teal-900/80 px-1 py-0.5 rounded font-mono font-bold text-teal-100">/201.mp3</code> to{' '}
+            <code className="bg-teal-900/80 px-1 py-0.5 rounded font-mono font-bold text-teal-100">/229.mp3</code>, and{' '}
+            <code className="bg-teal-900/80 px-1 py-0.5 rounded font-mono font-bold text-teal-100">/301.mp3</code> to{' '}
+            <code className="bg-teal-900/80 px-1 py-0.5 rounded font-mono font-bold text-teal-100">/329.mp3</code>).
           </div>
         </div>
 
@@ -136,7 +144,7 @@ export const AudioStatusModal: React.FC<AudioStatusModalProps> = ({ isOpen, onCl
           <div className="flex items-center gap-2">
             <span className="inline-flex items-center gap-1 px-3 py-1 rounded-full text-xs font-bold bg-emerald-500/20 text-emerald-300 border border-emerald-400/30">
               <CheckCircle2 className="w-3.5 h-3.5 text-emerald-400" />
-              Found: {foundCount} / 58
+              Found: {foundCount} / 116
             </span>
             <span className="inline-flex items-center gap-1 px-3 py-1 rounded-full text-xs font-bold bg-rose-500/20 text-rose-300 border border-rose-400/30">
               <XCircle className="w-3.5 h-3.5 text-rose-400" />
@@ -155,20 +163,20 @@ export const AudioStatusModal: React.FC<AudioStatusModalProps> = ({ isOpen, onCl
         </div>
 
         {/* Filter Tabs */}
-        <div className="flex border-b border-teal-500/20 px-4 pt-2 gap-1 bg-teal-950/40 text-xs font-semibold">
+        <div className="flex border-b border-teal-500/20 px-4 pt-2 gap-1 bg-teal-950/40 text-xs font-semibold overflow-x-auto">
           <button
             onClick={() => setFilter('all')}
-            className={`px-3 py-2 border-b-2 rounded-t-lg transition-colors cursor-pointer ${
+            className={`px-3 py-2 border-b-2 rounded-t-lg transition-colors cursor-pointer whitespace-nowrap ${
               filter === 'all'
                 ? 'border-teal-400 text-teal-200 bg-teal-900/50'
                 : 'border-transparent text-teal-300/60 hover:text-teal-200'
             }`}
           >
-            All Files (58)
+            All Files (116)
           </button>
           <button
             onClick={() => setFilter('l1')}
-            className={`px-3 py-2 border-b-2 rounded-t-lg transition-colors cursor-pointer ${
+            className={`px-3 py-2 border-b-2 rounded-t-lg transition-colors cursor-pointer whitespace-nowrap ${
               filter === 'l1'
                 ? 'border-emerald-400 text-emerald-300 bg-emerald-950/50'
                 : 'border-transparent text-teal-300/60 hover:text-teal-200'
@@ -178,7 +186,7 @@ export const AudioStatusModal: React.FC<AudioStatusModalProps> = ({ isOpen, onCl
           </button>
           <button
             onClick={() => setFilter('l2')}
-            className={`px-3 py-2 border-b-2 rounded-t-lg transition-colors cursor-pointer ${
+            className={`px-3 py-2 border-b-2 rounded-t-lg transition-colors cursor-pointer whitespace-nowrap ${
               filter === 'l2'
                 ? 'border-cyan-400 text-cyan-300 bg-cyan-950/50'
                 : 'border-transparent text-teal-300/60 hover:text-teal-200'
@@ -187,8 +195,28 @@ export const AudioStatusModal: React.FC<AudioStatusModalProps> = ({ isOpen, onCl
             Lesson 2 (29)
           </button>
           <button
+            onClick={() => setFilter('l3')}
+            className={`px-3 py-2 border-b-2 rounded-t-lg transition-colors cursor-pointer whitespace-nowrap ${
+              filter === 'l3'
+                ? 'border-teal-300 text-teal-100 bg-teal-950/50'
+                : 'border-transparent text-teal-300/60 hover:text-teal-200'
+            }`}
+          >
+            Lesson 3 (29)
+          </button>
+          <button
+            onClick={() => setFilter('l4')}
+            className={`px-3 py-2 border-b-2 rounded-t-lg transition-colors cursor-pointer whitespace-nowrap ${
+              filter === 'l4'
+                ? 'border-sky-300 text-sky-100 bg-sky-950/50'
+                : 'border-transparent text-teal-300/60 hover:text-teal-200'
+            }`}
+          >
+            Lesson 4 (29)
+          </button>
+          <button
             onClick={() => setFilter('missing')}
-            className={`px-3 py-2 border-b-2 rounded-t-lg transition-colors cursor-pointer ${
+            className={`px-3 py-2 border-b-2 rounded-t-lg transition-colors cursor-pointer whitespace-nowrap ${
               filter === 'missing'
                 ? 'border-rose-400 text-rose-300 bg-rose-950/50'
                 : 'border-transparent text-teal-300/60 hover:text-teal-200'
@@ -253,7 +281,7 @@ export const AudioStatusModal: React.FC<AudioStatusModalProps> = ({ isOpen, onCl
 
         {/* Footer */}
         <div className="p-4 bg-teal-950/80 border-t border-teal-500/20 flex items-center justify-between text-xs text-teal-300/70">
-          <span>Total tracked: 58 audio files</span>
+          <span>Total tracked: 87 audio files</span>
           <button
             onClick={onClose}
             className="px-5 py-2 bg-gradient-to-r from-teal-500 to-emerald-500 hover:from-teal-400 hover:to-emerald-400 text-white rounded-full font-semibold transition-all shadow-md cursor-pointer"

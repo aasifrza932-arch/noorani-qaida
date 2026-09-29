@@ -230,7 +230,75 @@ export const LessonView: React.FC<LessonViewProps> = ({ lesson, onNavigate, onOp
           {lesson.items.map((item, index) => {
             const palette = CARD_PALETTES[index % CARD_PALETTES.length];
             const isThisPlaying = playingItem?.number === item.number;
+            const isLesson3Or4 = lesson.id === 3 || lesson.id === 4;
 
+            if (!isLesson3Or4) {
+              /* Lesson 1 & Lesson 2: Untouched Original Layout */
+              return (
+                <div
+                  key={item.number}
+                  ref={(el) => {
+                    if (el) cardRefs.current.set(item.number, el);
+                    else cardRefs.current.delete(item.number);
+                  }}
+                  role="button"
+                  tabIndex={0}
+                  onClick={() => handleCardClick(item)}
+                  onKeyDown={(e) => {
+                    if (e.key === 'Enter' || e.key === ' ') {
+                      e.preventDefault();
+                      handleCardClick(item);
+                    }
+                  }}
+                  className={`book-card relative rounded-3xl p-3 sm:p-4 border-2 bg-gradient-to-b ${palette.bg} ${
+                    isThisPlaying ? palette.activeBorder + ' card-playing' : palette.border
+                  } flex flex-col justify-between items-center min-h-[140px] sm:min-h-[160px] cursor-pointer select-none focus:outline-none`}
+                >
+                  {/* Top Item Bar: Number & Speaker */}
+                  <div className="w-full flex items-center justify-between text-xs">
+                    {/* Number Badge */}
+                    <span className={`w-6 h-6 rounded-full flex items-center justify-center font-bold text-xs ${palette.numBadge} shadow-xs font-kids`}>
+                      {item.number}
+                    </span>
+
+                    {/* Speaker Icon / Wave */}
+                    <div
+                      className={`p-1.5 rounded-full ${
+                        isThisPlaying ? 'bg-teal-400 text-slate-950 sound-wave-active' : palette.badge
+                      }`}
+                    >
+                      <Volume2 className="w-4 h-4" />
+                    </div>
+                  </div>
+
+                  {/* Large Center Arabic Letter */}
+                  <div className="my-auto py-1 text-center w-full">
+                    <span
+                      className={`text-5xl sm:text-6xl md:text-7xl font-arabic font-extrabold ${palette.text} leading-none block drop-shadow-[0_2px_12px_rgba(0,0,0,0.6)] transition-transform ${
+                        isThisPlaying ? 'scale-110' : ''
+                      }`}
+                    >
+                      {item.arabic}
+                    </span>
+                  </div>
+
+                  {/* Bottom Label / Playing Indicator */}
+                  <div className="w-full text-center mt-1">
+                    {isThisPlaying ? (
+                      <span className="inline-flex items-center gap-1 px-3 py-0.5 rounded-full text-[11px] font-bold bg-teal-400 text-slate-950 shadow-md shadow-teal-950/60 font-arabic animate-pulse">
+                        <span>سن رہے ہیں...</span>
+                      </span>
+                    ) : (
+                      <span className={`inline-block px-2.5 py-0.5 rounded-full text-xs font-bold ${palette.badge} font-kids tracking-wide backdrop-blur-xs`}>
+                        {item.nameEn}
+                      </span>
+                    )}
+                  </div>
+                </div>
+              );
+            }
+
+            /* Lesson 3 Only: Dedicated Layout with Clear Vertical Gap and Distinct Zer/Kasra Visibility */
             return (
               <div
                 key={item.number}
@@ -249,9 +317,9 @@ export const LessonView: React.FC<LessonViewProps> = ({ lesson, onNavigate, onOp
                 }}
                 className={`book-card relative rounded-3xl p-3 sm:p-4 border-2 bg-gradient-to-b ${palette.bg} ${
                   isThisPlaying ? palette.activeBorder + ' card-playing' : palette.border
-                } flex flex-col justify-between items-center min-h-[140px] sm:min-h-[160px] cursor-pointer select-none focus:outline-none`}
+                } flex flex-col justify-between items-center min-h-[175px] sm:min-h-[190px] cursor-pointer select-none focus:outline-none`}
               >
-                {/* Top Item Bar: Number & Speaker */}
+                {/* 1. Top Item Bar: Number & Speaker */}
                 <div className="w-full flex items-center justify-between text-xs">
                   {/* Number Badge */}
                   <span className={`w-6 h-6 rounded-full flex items-center justify-center font-bold text-xs ${palette.numBadge} shadow-xs font-kids`}>
@@ -268,10 +336,12 @@ export const LessonView: React.FC<LessonViewProps> = ({ lesson, onNavigate, onOp
                   </div>
                 </div>
 
-                {/* Large Center Arabic Letter */}
-                <div className="my-auto py-1 text-center w-full">
+                {/* 2. Dedicated Arabic Display Area: Vertically Centered with Fixed/Minimum Height */}
+                <div className="flex-1 flex flex-col items-center justify-center w-full min-h-[92px] sm:min-h-[102px] pt-1.5 pb-2 text-center overflow-visible">
                   <span
-                    className={`text-5xl sm:text-6xl md:text-7xl font-arabic font-extrabold ${palette.text} leading-none block drop-shadow-[0_2px_12px_rgba(0,0,0,0.6)] transition-transform ${
+                    dir="rtl"
+                    lang="ar"
+                    className={`font-['Noto_Naskh_Arabic','Amiri',serif] font-bold text-5xl sm:text-6xl md:text-7xl ${palette.text} leading-[1.3] block drop-shadow-[0_2px_10px_rgba(0,0,0,0.55)] select-none transition-transform ${
                       isThisPlaying ? 'scale-110' : ''
                     }`}
                   >
@@ -279,14 +349,14 @@ export const LessonView: React.FC<LessonViewProps> = ({ lesson, onNavigate, onOp
                   </span>
                 </div>
 
-                {/* Bottom Label / Playing Indicator */}
-                <div className="w-full text-center mt-1">
+                {/* 3. Dedicated English Label Area: Anchored Below with a Clear Vertical Gap */}
+                <div className="w-full text-center mt-auto pt-2 pb-0.5">
                   {isThisPlaying ? (
-                    <span className="inline-flex items-center gap-1 px-3 py-0.5 rounded-full text-[11px] font-bold bg-teal-400 text-slate-950 shadow-md shadow-teal-950/60 font-arabic animate-pulse">
+                    <span className="inline-flex items-center gap-1 px-3 py-1 rounded-full text-[11px] font-bold bg-teal-400 text-slate-950 shadow-md shadow-teal-950/60 font-arabic animate-pulse">
                       <span>سن رہے ہیں...</span>
                     </span>
                   ) : (
-                    <span className={`inline-block px-2.5 py-0.5 rounded-full text-xs font-bold ${palette.badge} font-kids tracking-wide backdrop-blur-xs`}>
+                    <span className={`inline-block px-3 py-1 rounded-full text-xs font-bold ${palette.badge} font-kids tracking-wide backdrop-blur-xs shadow-xs`}>
                       {item.nameEn}
                     </span>
                   )}
@@ -308,7 +378,7 @@ export const LessonView: React.FC<LessonViewProps> = ({ lesson, onNavigate, onOp
             <ArrowRight className="w-4 h-4" />
             <span>← Previous (پچھلا سبق)</span>
           </button>
-        ) : (
+        ) : lesson.id === 2 ? (
           <button
             onClick={() => {
               audioController.stopAll();
@@ -319,11 +389,33 @@ export const LessonView: React.FC<LessonViewProps> = ({ lesson, onNavigate, onOp
             <ArrowRight className="w-4 h-4 text-teal-300" />
             <span>← سبق 1 (حروف کی پہچان)</span>
           </button>
+        ) : lesson.id === 3 ? (
+          <button
+            onClick={() => {
+              audioController.stopAll();
+              onNavigate('lesson-2');
+            }}
+            className="inline-flex items-center gap-2 px-5 py-3 rounded-full bg-teal-950/70 hover:bg-teal-900 text-white border border-teal-400/30 font-arabic font-bold text-base shadow-lg shadow-teal-950/40 backdrop-blur-md transition-all active:scale-95 cursor-pointer"
+          >
+            <ArrowRight className="w-4 h-4 text-teal-300" />
+            <span>← سبق 2 (حروف پر زبر)</span>
+          </button>
+        ) : (
+          <button
+            onClick={() => {
+              audioController.stopAll();
+              onNavigate('lesson-3');
+            }}
+            className="inline-flex items-center gap-2 px-5 py-3 rounded-full bg-teal-950/70 hover:bg-teal-900 text-white border border-teal-400/30 font-arabic font-bold text-base shadow-lg shadow-teal-950/40 backdrop-blur-md transition-all active:scale-95 cursor-pointer"
+          >
+            <ArrowRight className="w-4 h-4 text-teal-300" />
+            <span>← سبق 3 (حروف کے نیچے زیر)</span>
+          </button>
         )}
 
         {/* Center Progress Dot indicator */}
         <div className="hidden sm:flex items-center gap-2 text-teal-200 font-bold font-arabic text-sm">
-          <span>سبق {lesson.id} از 2</span>
+          <span>سبق {lesson.id} از 4</span>
         </div>
 
         {/* Next Button */}
@@ -336,6 +428,28 @@ export const LessonView: React.FC<LessonViewProps> = ({ lesson, onNavigate, onOp
             className="inline-flex items-center gap-2 px-6 py-3 rounded-full bg-gradient-to-r from-teal-500 to-emerald-500 hover:from-teal-400 hover:to-emerald-400 text-white font-arabic font-extrabold text-base shadow-lg shadow-teal-500/30 transition-all active:scale-95 cursor-pointer"
           >
             <span>Next (سبق 2: زبر) →</span>
+            <ArrowLeft className="w-4 h-4" />
+          </button>
+        ) : lesson.id === 2 ? (
+          <button
+            onClick={() => {
+              audioController.stopAll();
+              onNavigate('lesson-3');
+            }}
+            className="inline-flex items-center gap-2 px-6 py-3 rounded-full bg-gradient-to-r from-teal-500 to-emerald-500 hover:from-teal-400 hover:to-emerald-400 text-white font-arabic font-extrabold text-base shadow-lg shadow-teal-500/30 transition-all active:scale-95 cursor-pointer"
+          >
+            <span>Next (سبق 3: زیر) →</span>
+            <ArrowLeft className="w-4 h-4" />
+          </button>
+        ) : lesson.id === 3 ? (
+          <button
+            onClick={() => {
+              audioController.stopAll();
+              onNavigate('lesson-4');
+            }}
+            className="inline-flex items-center gap-2 px-6 py-3 rounded-full bg-gradient-to-r from-teal-500 to-emerald-500 hover:from-teal-400 hover:to-emerald-400 text-white font-arabic font-extrabold text-base shadow-lg shadow-teal-500/30 transition-all active:scale-95 cursor-pointer"
+          >
+            <span>Next (سبق 4: پیش) →</span>
             <ArrowLeft className="w-4 h-4" />
           </button>
         ) : (

@@ -13,7 +13,7 @@ export interface Lesson {
   items: QaidaItem[];
 }
 
-export type ViewMode = 'home' | 'lesson-1' | 'lesson-2' | 'quiz';
+export type ViewMode = 'home' | 'lesson-1' | 'lesson-2' | 'lesson-3' | 'lesson-4' | 'quiz';
 
 export interface AudioStatusItem {
   filename: string;
